@@ -22,7 +22,9 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
- && rm -rf /var/lib/apt/lists/*
+    default-libmysqlclient-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install the application server.
 RUN pip install "gunicorn==20.0.4"
@@ -31,8 +33,14 @@ RUN pip install "gunicorn==20.0.4"
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
 
+# Install mysqlclient
+RUN pip install mysqlclient
+
 # Use /app folder as a directory where the source code is stored.
 WORKDIR /app
+
+# Create public directory and set permissions
+RUN mkdir -p /app/public && chown wagtail:wagtail /app/public && chmod 777 /app/public
 
 # Set this directory to be owned by the "wagtail" user. This Wagtail project
 # uses SQLite, the folder needs to be owned by the user that
