@@ -25,7 +25,7 @@ ALLOWED_HOSTS = [
     HOST,
     'localhost',
     'web',
-    '127.0.0.1',
+    '159.89.22.211',
 ]
 
 SECURE_SSL_REDIRECT = True
