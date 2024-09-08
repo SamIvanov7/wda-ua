@@ -1,0 +1,246 @@
+:root {
+  --background-color: #04100A;
+  --foreground-color: #7ab0d7;
+  --cursor-color: #7ab0d7;
+
+  --color0: #04100A;
+  --color1: #3B6625;
+  --color2: #136154;
+  --color3: #599611;
+  --color4: #439A5E;
+  --color5: #9BC753;
+  --color6: #06679C;
+  --color7: #7ab0d7;
+  --color8: #557b96;
+  --color9: #3B6625;
+  --color10: #136154;
+  --color11: #599611;
+  --color12: #439A5E;
+  --color13: #9BC753;
+  --color14: #06679C;
+  --color15: #7ab0d7;
+
+  --white-color: #d4d8da;
+  --light-gray-color: #557b96;
+  --light-gray-color-bg: #36709d50;
+  --gray-color: #557b96;
+  --dark-gray-color: #04100A;
+  --light-green-color: #AAD15A;
+  --green-color: #94de1d;
+  --lime-color: #52A25E;
+  --lime-color-bg: #52a25e5c;
+  --red-color: #662525;
+  --black-color: #04100A;
+  /* Using color0 */
+  --index: calc(1vw + 1vh);
+  --transition: ease-in-out;
+  /* New size and spacing variables */
+  --base-font-size: 16px;
+  --scale-factor: calc(1vw + 1vh);
+  --space-unit: 0.25rem;
+
+  /* Typography */
+  --font-size-xs: calc(0.75 * var(--base-font-size));
+  --font-size-sm: calc(0.875 * var(--base-font-size));
+  --font-size-md: var(--base-font-size);
+  --font-size-lg: calc(1.125 * var(--base-font-size));
+  --font-size-xl: calc(1.25 * var(--base-font-size));
+  --font-size-2xl: calc(1.5 * var(--base-font-size));
+  --font-size-3xl: calc(1.875 * var(--base-font-size));
+  --font-size-4xl: calc(2.25 * var(--base-font-size));
+
+  /* Spacing */
+  --space-xs: calc(1 * var(--space-unit));
+  --space-sm: calc(2 * var(--space-unit));
+  --space-md: calc(4 * var(--space-unit));
+  --space-lg: calc(6 * var(--space-unit));
+  --space-xl: calc(8 * var(--space-unit));
+  --space-2xl: calc(12 * var(--space-unit));
+
+  /* Layout */
+  --container-max-width: calc(71.25 * var(--space-unit));
+  /* 1140px */
+  --container-min-width: calc(20 * var(--space-unit));
+  /* 320px */
+  --grid-gutter: var(--space-md);
+}
+
+
+
+
+
+/* montserrat-alternates-200 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 200;
+  src: url('../fonts/montserrat-alternates-v17-latin-200.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-200italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: italic;
+  font-weight: 200;
+  src: url('../fonts/montserrat-alternates-v17-latin-200italic.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-300 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/montserrat-alternates-v17-latin-300.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-300italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: italic;
+  font-weight: 300;
+  src: url('../fonts/montserrat-alternates-v17-latin-300italic.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-regular - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/montserrat-alternates-v17-latin-regular.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/montserrat-alternates-v17-latin-italic.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-500 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/montserrat-alternates-v17-latin-500.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-500italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: italic;
+  font-weight: 500;
+  src: url('../fonts/montserrat-alternates-v17-latin-500italic.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-600 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/montserrat-alternates-v17-latin-600.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-600italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: italic;
+  font-weight: 600;
+  src: url('../fonts/montserrat-alternates-v17-latin-600italic.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-700 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/montserrat-alternates-v17-latin-700.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-700italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../fonts/montserrat-alternates-v17-latin-700italic.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-800 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../fonts/montserrat-alternates-v17-latin-800.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-800italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: italic;
+  font-weight: 800;
+  src: url('../fonts/montserrat-alternates-v17-latin-800italic.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-900 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/montserrat-alternates-v17-latin-900.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-alternates-900italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat Alternates';
+  font-style: italic;
+  font-weight: 900;
+  src: url('../fonts/montserrat-alternates-v17-latin-900italic.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}

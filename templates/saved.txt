@@ -1,0 +1,362 @@
+
+ {% comment %} 
+<!-- Fourth Slide -->
+<div class="header-content__slide header-content__slide--fourth">
+ <div class="header-content__info">
+  <div id="video-container" class="slide-1-section">
+      <h2 class="container-title">Video Player</h2>
+      <video id="video-player" controls>
+          <source src="sample-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+  </div>
+
+  <div id="calendarWidget">
+    <div id="calendar"></div>
+        <script src="{% static 'assets/js/moment.min.js' %}" defer></script>
+    </div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const containers = document.querySelectorAll('.slide-1-section');
+
+      containers.forEach(container => {
+          container.addEventListener('click', function() {
+              this.style.zIndex = '10';
+              containers.forEach(otherContainer => {
+                  if (otherContainer !== this) {
+                      otherContainer.style.zIndex = '1';
+                  }
+              });
+          });
+      });
+  });
+</script>
+</div> {% endcomment %}
+  {% comment %} <div id="video-container">
+      <!-- Placeholder for video -->
+      <video controls>
+      <p style="color: white; text-align: center;">Video Placeholder</p>
+      </video>
+  </div>
+  <div id="calendarWidget">
+  <div id="calendar"></div>
+      <script src="{% static 'assets/js/moment.min.js' %}" defer></script>
+<!-- Add your calendar initialization script here -->
+  </div>
+</div> {% endcomment %}
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar humanize %}
+{% load custom_filters %}
+
+{% block content %}
+{% block extra_css %}
+
+
+{% endblock extra_css%}
+<div class="swiper slider">
+  <div class="slider-ui">
+    <div class="container header-wrapper">
+      <div class="top-line">
+        {% include '_partail/header.html' %}
+      </div>
+      <div class="header-content">
+
+      <!-- First Slide -->
+      <div class="header-content__slide active">
+        <h1 class="letters">WDA UA e.V.</h1>
+        <div class="header-content__info2">
+          <p>Verein ukrainische Gemeinde in der Stadt Werdau</p>
+        </div>
+
+        
+        <div class="header-content__info">
+          <div class="grid-container">
+            
+
+            <div class="grid-item" style="background-color: rgba(255, 255, 255, 0); box-shadow: 0 4px 6px rgba(0, 0, 0, 0)" data-aos="zoom-out" data-aos-delay="200">
+              
+                <div id="video-container"></div>
+              
+            </div>
+
+            
+
+          </div>
+          <div class="header-bottom">
+            <div class="grid-container">
+              <div class="grid-item" style="background-color: rgba(255, 255, 255, 0); box-shadow: 0 4px 6px rgba(0, 0, 0, 0)" data-aos="zoom-out" data-aos-delay="200">
+                <div id="video-container"></div>
+              </div>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+
+
+{% comment %} <div class="grid-item" style="background-color: rgba(255, 255, 255, 0); box-shadow: 0 4px 6px rgba(0, 0, 0, 0)" data-aos="zoom-out" data-aos-delay="200">
+        
+        <div id="calendarWidget">
+          <div id="calendar"></div>
+          <script src="{% static 'assets/js/moment.min.js' %}" defer></script>
+        </div>
+      </div> {% endcomment %}
+
+
+
+ {% comment %} {% with last_event=result.object_list|first %}
+      <div class="grid-item"   data-aos="zoom-out" data-aos-delay="200">
+        <h3 style="z font-size: calc(var(--index) * 1.05);"><a href="{% pageurl last_event %}">Last event</a></h3>
+        <div class="col-lg-12" style="margin-top: 15px;">
+          {% with first_image=last_event.content|first_image %}
+          {% if first_image %}
+          {% image first_image.image fill-300x200 as img %}
+          <img src="{{ img.url }}" class="img-fluid" alt="{{ first_image.image.title }}">
+          {% if first_image.caption %}
+          <figcaption>{{ first_image.caption }}</figcaption>
+          {% endif %}
+          {% endif %}
+          {% endwith %}
+        </div>
+        <div class="col-lg-12">
+          <h4><a href="{% url 'aktiv-gromadi_details' last_event.pk %}" data-gallery="aktiv-gromadiDetailsGallery" data-glightbox="type: external" class="aktiv-gromadi-details-lightbox details-link" title="aktiv-gromadi Details">{{ last_event.title }}</a></h4>
+          {% for block in last_event.content %}
+          {% if block.block_type == 'rich_text' %}
+          <p style="text-align: center; ">
+            {{ block.value|richtext|truncatechars:125 }}
+          </p>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div><!--End Grid Item -->
+      {% endwith %} {% endcomment %}     
+                                            {% comment %} {% extends 'base.html' %}
+                                    {% load static wagtailcore_tags wagtailimages_tags wagtailuserbar humanize %}
+                                    {% load custom_filters %}
+                                    {% block extra_css %}
+                                    <style>
+                                      /* Common styles */
+                                      .header-content__slide {
+                                        display: none;
+                                      }
+
+                                      .header-content__slide.active {
+                                        display: block;
+                                      }
+
+                                      /* First Slide styles */
+                                      .header-content__slide--first {
+                                        /* Your existing styles for the first slide */
+                                      }
+
+                                      /* Second Slide styles */
+                                      .header-content__slide--second {
+                                        padding: 2rem;
+                                        background-color: #f8f9fa;
+                                      }
+
+                                      .header-content__slide--second .letters {
+                                        font-size: calc(var(--index) * 4);
+                                        font-weight: 900;
+                                        text-align: center;
+                                        margin-bottom: 2rem;
+                                        color: #333;
+                                      }
+
+                                      .header-content__slide--second .grid-container {
+                                        display: grid;
+                                        grid-template-columns: 1fr 1fr 1fr;
+                                        gap: 2rem;
+                                      }
+
+                                      .header-content__slide--second .grid-item {
+                                        background-color: #fff;
+                                        border-radius: 10px;
+                                        padding: 1.5rem;
+                                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                      }
+
+                                      .header-content__slide--second .img-300x200 {
+                                        width: 100%;
+                                        height: 200px;
+                                        background-color: #e0e0e0;
+                                        border-radius: 10px;
+                                      }
+
+                                      .header-content__slide--second .icon-box {
+                                        margin-bottom: 1.5rem;
+                                      }
+
+                                      .header-content__slide--second .icon-box h4 {
+                                        font-size: 1.2rem;
+                                        font-weight: 700;
+                                        margin-bottom: 0.5rem;
+                                        color: #0056b3;
+                                      }
+
+                                      .header-content__slide--second .icon-box p {
+                                        font-size: 1rem;
+                                        color: #555;
+                                      }
+
+                                      @media (max-width: 768px) {
+                                        .header-content__slide--second .grid-container {
+                                          grid-template-columns: 1fr;
+                                        }
+                                      }
+                                    </style>
+                                    {% endblock extra_css%}
+
+                                    <div class="swiper slider">
+                                      <div class="slider-ui">
+                                        <div class="container header-wrapper">
+                                          <div class="top-line">
+                                            {% include '_partail/header.html' %}
+                                          </div>
+                                          <div class="header-content">
+
+                                            <!-- First Slide -->
+                                            <div class="header-content__slide header-content__slide--first active">
+                                              <!-- Your existing first slide content -->
+                                            </div>
+
+                                            <!-- Second Slide -->
+                                            <div class="header-content__slide header-content__slide--second">
+                                              <h1 class="letters">ÜBER UNS</h1>
+                                              <div class="grid-container">
+                                                <div class="grid-item">
+                                                  <div id="video-about" class="img-300x200"></div>
+                                                </div>
+                                                <div class="grid-item">
+                                                  <div class="icon-box">
+                                                    <p>
+                                                      Willkommen bei "WDA UA e.V.", der Ukrainischen Gemeinde in Werdau! Wir sind ein eingetragener Verein und unser Jahr läuft wie das Kalenderjahr. Unser Ziel ist es, Menschen zu unterstützen, die politisch, rassistisch oder religiös verfolgt werden, sowie Flüchtlingen und Kriegsopfern zu helfen. Außerdem fördern wir internationale Freundschaften und Toleranz in allen kulturellen Bereichen.
+                                                    </p>
+                                                  </div>
+                                                </div>
+                                                <div class="grid-item">
+                                                  <div class="icon-box">
+                                                    <h4>Integration und Bildung</h4>
+                                                    <p>Wir helfen Kindern und Jugendlichen, sich zu integrieren und weiterzuentwickeln.</p>
+                                                  </div>
+                                                  <div class="icon-box">
+                                                    <h4>Gute Beziehungen</h4>
+                                                    <p>Wir stärken die Beziehungen zwischen der Ukraine und Deutschland in sozialen Bereichen.</p>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+
+                                              <!-- Third Slide -->
+                                            <div class="header-content__slide">
+                                              <div class="header-content__info">
+                                                
+                                              </div>
+                                            </div>
+
+
+
+                                              <!-- Fourth Slide -->
+                                            <div class="header-content__slide">
+                                              <div class="header-content__info">
+                                              
+                                              </div>
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="swiper-wrapper">
+                                        <div class="swiper-slide slider__item">
+                                            <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/main-back.png' %});"></div>
+                                            <div class="slider__layer" data-swiper-parallax="28%" style="background-image: url({% static 'assets/img/slides/main-middle.png' %});"></div>
+                                            <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/main-front.png' %});"></div>
+                                        </div>
+                                        <div class="swiper-slide slider__item">
+                                          <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/new-bg4-back.png' %});"></div>
+                                          <div class="slider__layer" data-swiper-parallax="25%" style="background-image: url({% static 'assets/img/slides/new-bg4-middle.png' %});"></div>
+                                          <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/new-bg4-front.png' %});"></div>
+                                      </div>
+                                        <div class="swiper-slide slider__item">
+                                            <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/main-background-back.png' %});"></div>
+                                            <div class="slider__layer" data-swiper-parallax="25%" style="background-image: url({% static 'assets/img/slides/main-background-middle.png' %});"></div>
+                                            <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/main-background-front.png' %});"></div>
+                                        </div>
+                                        <div class="swiper-slide slider__item">
+                                            <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/new-bg4-back.png' %});"></div>
+                                            <div class="slider__layer" data-swiper-parallax="25%" style="background-image: url({% static 'assets/img/slides/new-bg4-middle.png' %});"></div>
+                                            <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/new-bg4-front.png' %});"></div>
+                                        </div>
+                                        <div class="swiper-slide slider__item">
+                                            <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/new-bg7-back.png' %});"></div>
+                                            <div class="slider__layer" data-swiper-parallax="25%" style="background-image: url({% static 'assets/img/slides/new-bg7-middle.png' %});"></div>
+                                            <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/new-bg7-front.png' %});"></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {% endblock content %}
+
+
+
+
+                                    {% block extra_js %}
+
+
+                                    {% endblock extra_js %}
+
+                                    {% endcomment %} 
+
+
+                                    <style>
+                                      /* Add these styles for the popup */
+                                      
+                                    </style>
+
+                                       {% comment %} <!-- Third Slide -->
+                <div id="third_slide" class="header-content__slide header-content__slide--third">
+                  <div class="header-content__info3">
+                    <h5 class="letters">AKTIV GROMADI</h5>
+                    <section id="aktiv-gromadi" class="aktiv-gromadi">
+                      <div class="container">
+                        
+                        <div class="filter-container">
+                          <ul id="aktiv-gromadi-flters">
+                            <li data-filter="*" class="filter-active">ALL</li>
+                            {% for post in result %}
+                              <li data-filter=".filter-{{ post.slug|slugify }}">{{ post.title }}</li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="aktiv-gromadi-container">
+                        {% for post in result %}
+                          <div class="aktiv-gromadi-item filter-{{ post.slug|slugify }}">
+                            {% with first_image=post.content|first_image %}
+                              {% if first_image %}
+                                {% image first_image.image fill-300x300 as img %}
+                                <img src="{{ img.url }}" alt="{{ first_image.image.title }}" style="object-fit: cover; width: 100%; height: 200px;">
+                              {% endif %}
+                            {% endwith %}
+                            <div class="aktiv-gromadi-info">
+                              <h4>{{ post.title }}</h4>
+                              <p>{{ post.excerpt|truncatewords:20 }}</p>
+                              
+                              <a href="javascript:void(0);" onclick="fetchAktivGromadiDetails({{ post.pk }})" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </section>
+                  </div>
+                </div> {% endcomment %}
+        <!-- Third Slide -->

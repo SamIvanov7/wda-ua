@@ -1,0 +1,29 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% load custom_filters %}
+<header id="header" {% if site.cover_image %}style="background-image: url('{{site.cover_image}}')" {% endif %}>
+
+<div class="row">
+    <div class="col col--center">
+        <a href="{% slugurl 'home' %}" class="logo">
+            <img src="{% static 'assets/img/wda-logo-text3.png'%}" alt="Grow" height="35%">
+        </a>
+    </div>
+    <div class="col col--center col--right col--lead">
+        <nav class="main-menu">
+            <ul>
+                <li><a href="{% slugurl 'home' %}">Home</a></li>
+                <li><a id="about-us" href="#">Über uns</a></li>
+                <li><a id="events-btn" href="#">Events</a></li>
+                <li><a id="kontakt-btn" href="#">Kontakt</a></li>
+            </ul>
+        </nav>
+        <a href="#" id="kalender-btn" class="button button--top">kalender</a>
+    </div>
+    <div class="col col--center">
+        <button class="submenu anim-menu-btn">
+            <i class="anim-menu-btn__icon anim-menu-btn__icon--close"></i>
+        </button>
+    </div>
+</div>
+</header>
+

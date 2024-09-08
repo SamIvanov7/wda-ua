@@ -1,0 +1,86 @@
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Baker Bootstrap Template - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" />
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'assets/libs/swiper/swiper-bundle.min.css' %}" />
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/styles.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <main id="main">
+        <section id="aktiv-gromadi-details" class="aktiv-gromadi-details">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-8">
+                        <div class="aktiv-gromadi-details-slider swiper">
+                            <div class="swiper-wrapper align-items-center">
+                                {% for block in post.content %}
+                                    {% if block.block_type == 'image' %}
+                                        {% image block.value.image fill-800x600 as img %}
+                                        <div class="swiper-slide">
+                                            <img src="{{ img.url }}" alt="{{ block.value.image.title }}">
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="aktiv-gromadi-description">
+                            {% for block in post.content %}
+                                {% if block.block_type == 'head' %}
+                                    <h2>{{ block.value.title }}</h2>
+                                {% elif block.block_type == 'rich_text' %}
+                                    <p>{{ block.value|richtext }}</p>
+                                {% elif block.block_type == 'blockquote' %}
+                                    <blockquote>{{ block.value }}</blockquote>
+                                {% elif block.block_type == 'code' %}
+                                    <pre><code>{{ block.value.code }}</code></pre>
+                                {% elif block.block_type == 'table' %}
+                                    {{ block.value|safe }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="{% static 'assets/libs/btn/anim-menu-btn.min.js' %}" defer></script>
+    <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}" defer></script>
+    <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}" defer></script>
+    
+    
+
+</body>
+</html>

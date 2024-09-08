@@ -1,0 +1,49 @@
+# Django project
+/media/
+/static/
+*.sqlite3
+
+# Python and others
+__pycache__
+*.pyc
+.DS_Store
+*.swp
+/venv/DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "OPTIONS": {
+            "read_default_file": os.path.join(config_file, "my.cnf"),
+            "sql_mode": "traditional",
+        },
+    }
+}
+/tmp/
+/.vagrant/
+/Vagrantfile.local
+node_modules/
+/npm-debug.log
+/.idea/
+.vscode
+coverage
+.python-version
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.env
+.env-template

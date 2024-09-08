@@ -1,0 +1,531 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar humanize %}
+{% load custom_filters %}
+
+{% block content %}
+{% block extra_css %}
+<link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+<style>
+
+  .header-content__slide--second .header-content__info2 {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 4em;
+    padding: 0 20px;
+  }
+  
+  .header-content__slide--second .letters {
+    font-size: calc(var(--index) * 3.55);
+    margin-left: calc(var(--index) * -0.25);
+    letter-spacing: 35px;
+    text-shadow: 10px 0 0px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+  }
+  
+  .header-content__slide--second .about-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  
+  .header-content__slide--second .video-container {
+    margin-top: 3.5em;
+    flex: 1;
+    max-width: 50%;
+  }
+  
+  .header-content__slide--second .video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .header-content__slide--second .video-wrapper.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 640px;
+    height: 480px;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+  }
+  
+  .header-content__slide--second .video-wrapper.fullscreen video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .header-content__slide--second video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .header-content__slide--second .text-container {
+    flex: 1;
+    max-width: 50%;
+  }
+  
+  .header-content__slide--second .text-box {
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+  
+  .header-content__slide--second h4 {
+    font-size: calc(var(--index) * 1.2);
+    color: var(--color15);
+    margin-bottom: 1rem;
+  }
+  
+  .header-content__slide--second p {
+    font-size: calc(var(--index) * 0.8);
+    line-height: 1.6;
+    color: var(--white-color);
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .header-content__slide--second .about-container {
+      flex-direction: column;
+    }
+  
+    .header-content__slide--second .video-container,
+    .header-content__slide--second .text-container {
+      max-width: 100%;
+    }
+  
+    .header-content__slide--second .video-wrapper.fullscreen {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  /*--------------------------------------------------------------
+# Header Content Info Styles
+--------------------------------------------------------------*/
+.header-content__slide--third {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-content__slide--third .header-content__info3 {
+  width: 100%;
+  max-width: 1140px;
+  text-align: center;
+}
+
+.header-content__slide--third .filter-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: calc(var(--index) * 2);
+}
+
+.header-content__slide--third #aktiv-gromadi-flters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.header-content__slide--third #aktiv-gromadi-flters li {
+  cursor: pointer;
+  padding: calc(var(--index) * 0.5) calc(var(--index) * 1);
+  margin: calc(var(--index) * 0.25);
+  font-size: calc(var(--index) * 0.9);
+  color: var(--white-color);
+  background-color: var(--light-gray-color-bg);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.header-content__slide--third #aktiv-gromadi-flters li:hover,
+.header-content__slide--third #aktiv-gromadi-flters li.filter-active {
+  background-color: var(--green-color);
+}
+
+.header-content__slide--third #aktiv-gromadi {
+  width: 100%;
+}
+
+.header-content__slide--third .swiper-container {
+  width: 100%;
+  padding-bottom: calc(var(--index) * 3);
+}
+
+.header-content__slide--third .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.header-content__slide--third .aktiv-gromadi-item {
+  width: 100%;
+  max-width: 300px;
+  height: 200px;
+  margin: 0 calc(var(--index) * 1);
+}
+
+.header-content__slide--third .aktiv-gromadi-wrap {
+  background-color: var(--light-gray-color-bg);
+  padding: calc(var(--index) * 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.header-content__slide--third .swiper-pagination {
+  bottom: 0;
+}
+
+.header-content__slide--third .swiper-pagination-bullet {
+  background-color: var(--white-color);
+  opacity: 0.5;
+}
+
+.header-content__slide--third .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .header-content__slide--third .aktiv-gromadi-item {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: calc(var(--index) * 2);
+  }
+}
+</style>
+{% endblock extra_css %}
+
+<div class="swiper slider">
+  <div class="slider-ui">
+    <div class="container header-wrapper">
+      <div class="top-line">
+        {% include '_partail/header.html' %}
+      </div>
+      <div class="header-content">
+
+        <!-- First Slide -->
+        <div id="first_slide" class="header-content__slide header-content__slide--first active">
+          <h1 class="letters">WDA UA e.V.</h1>
+          <div class="header-content__info">
+            <p>Verein ukrainische Gemeinde in der Stadt Werdau</p>
+            <div class="button-wrapper">
+              <button id="learn-more-btn" class="button button--main">Mehr kennenlernen...</button>
+            </div>
+          </div>
+        </div>
+
+       
+        <!-- Second Slide -->
+        <div id="second_slide" class="header-content__slide header-content__slide--second">
+          <div class="header-content__info2">
+            <h5 class="letters">Über uns</h5>
+            <div class="about-container">
+              <div class="video-container">
+                <div id="video-wrapper" class="video-wrapper">
+                  <div id="video-about"></div>
+                </div>
+              </div>
+              <div class="text-container">
+                <div class="text-box">
+                  <h4>Willkommen bei WDA UA e.V.</h4>
+                  <p>Willkommen bei "WDA UA e.V.", der Ukrainischen Gemeinde in Werdau! Wir sind ein eingetragener Verein, der sich für die Förderung der Hilfe für politisch, rassistisch oder religiös Verfolgte, Flüchtlinge, Vertriebene und Kriegsopfer einsetzt.</p>
+                  <p>Ein weiterer Schwerpunkt unserer Arbeit liegt auf der Förderung der Beziehungen zwischen der Ukraine und Deutschland, insbesondere auf sozialer, kultureller, pädagogischer und sportlicher Ebene. Zudem engagieren wir uns für den Wiederaufbau der Ukraine nach Kriegsende.</p>
+                  <p>Wir heißen alle willkommen, die sich aktiv in unsere Arbeit einbringen möchten. Gemeinsam setzen wir uns für eine bessere Zukunft ein!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+
+       
+        <!-- Third Slide -->
+        <div id="third_slide" class="header-content__slide header-content__slide--third">
+          <div class="header-content__info3">
+            <h5 class="letters">AKTIV GROMADI</h5>
+            <section id="aktiv-gromadi" class="aktiv-gromadi">
+              <div class="container">
+                
+                <div class="filter-container">
+                  <ul id="aktiv-gromadi-flters">
+                    <li data-filter="*" class="filter-active">ALL</li>
+                    {% for post in result %}
+                      <li data-filter=".filter-{{ post.slug|slugify }}">{{ post.title }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              <div class="aktiv-gromadi-container">
+                {% for post in result %}
+                  <div class="aktiv-gromadi-item filter-{{ post.slug|slugify }}">
+                    {% with first_image=post.content|first_image %}
+                      {% if first_image %}
+                        {% image first_image.image fill-300x300 as img %}
+                        <img src="{{ img.url }}" alt="{{ first_image.image.title }}">
+                      {% endif %}
+                    {% endwith %}
+                    <div class="aktiv-gromadi-info">
+                      <h4>{{ post.title }}</h4>
+                      <p>{{ post.excerpt|truncatewords:20 }}</p>
+                      
+                      <a href="javascript:void(0);" onclick="fetchAktivGromadiDetails({{ post.pk }})" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="header-content__slide header-content__slide--third">
+          <div class="header-content__info3">
+            
+            <h2>Sub-Header (Theme)</h2>
+          
+        
+          <div class="filter-container">
+            <ul id="aktiv-gromadi-flters">
+              <li>Filter 1</li>
+              <li>Filter 2</li>
+              <li>Filter 3</li>
+            </ul>
+          </div>
+        
+          <section id="aktiv-gromadi">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                  <div class="row">
+                    <div class="col">
+                      <div class="item">Item 1</div>
+                    </div>
+                    <div class="col">
+                      <div class="item">Item 2</div>
+                    </div>
+                    <div class="col">
+                      <div class="item">Item 3</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                  <div class="row">
+                    <div class="col">
+                      <div class="item">Item 4</div>
+                    </div>
+                    <div class="col">
+                      <div class="item">Item 5</div>
+                    </div>
+                    <div class="col">
+                      <div class="item">Item 6</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Additional Slides as needed -->
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+          <div class="header-bottom"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="swiper-wrapper">
+    <div class="swiper-slide slider__item">
+      <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/leaves-bg3-back.png' %});"></div>
+      <div class="slider__layer" data-swiper-parallax="25%" style="background-image: url({% static 'assets/img/slides/leaves-bg3-middle.png' %});"></div>
+      <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/leaves-bg3-front.png' %});"></div>
+    </div>
+    <div class="swiper-slide slider__item">
+      <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/main-background-back.png' %});"></div>
+      <div class="slider__layer" data-swiper-parallax="25%" style="background-image: url({% static 'assets/img/slides/main-background-middle.png' %});"></div>
+      <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/main-background-front.png' %});"></div>
+    </div>
+    <div class="swiper-slide slider__item">
+      <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/main-back.png' %});"></div>
+      <div class="slider__layer" data-swiper-parallax="28%" style="background-image: url({% static 'assets/img/slides/main-middle.png' %});"></div>
+      <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/main-front.png' %});"></div>
+    </div>
+    <div class="swiper-slide slider__item">
+      <div class="slider__layer" data-swiper-parallax="35%" style="background-image: url({% static 'assets/img/slides/new-bg4-back.png' %});"></div>
+      <div class="slider__layer" data-swiper-parallax="28%" style="background-image: url({% static 'assets/img/slides/new-bg4-middle.png' %});"></div>
+      <div class="slider__layer" data-swiper-parallax="14%" style="background-image: url({% static 'assets/img/slides/new-bg4-front.png' %});"></div>
+    </div>
+  </div>
+</div>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close">&times;</span>
+    <div id="popup-body"></div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var swiperContainer = document.querySelector('.header-content__slide--third .swiper-container');
+    var swiperOptions = {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        576: {
+          slidesPerView: 1,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        992: {
+          slidesPerView: 3,
+        },
+      },
+    };
+    var swiper = new Swiper(swiperContainer, swiperOptions);
+  
+    var filterLinks = document.querySelectorAll('#aktiv-gromadi-flters li');
+    filterLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        var filterValue = link.getAttribute('data-filter');
+        filterLinks.forEach(function(item) {
+          item.classList.remove('filter-active');
+        });
+        link.classList.add('filter-active');
+        swiper.destroy();
+        swiperContainer.querySelectorAll('.aktiv-gromadi-item').forEach(function(item) {
+          if (filterValue === '*' || item.classList.contains(filterValue)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        swiper = new Swiper(swiperContainer, swiperOptions);
+      });
+    });
+  });
+</script>
+<script>
+  // video-fullscreen.js
+  document.addEventListener("DOMContentLoaded", function () {
+    const videoWrapper = document.getElementById('video-wrapper');
+    const videoAbout = document.getElementById('video-about');
+  
+    let isFullscreen = false;
+  
+    function toggleFullscreen() {
+      if (!isFullscreen) {
+        videoWrapper.classList.add('fullscreen');
+        document.body.style.overflow = 'hidden';
+        isFullscreen = true;
+      } else {
+        videoWrapper.classList.remove('fullscreen');
+        document.body.style.overflow = 'auto';
+        isFullscreen = false;
+      }
+    }
+  
+    videoWrapper.addEventListener('click', toggleFullscreen);
+  
+    // Close fullscreen when pressing Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isFullscreen) {
+        toggleFullscreen();
+      }
+    });
+  });
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize GLightbox
+    initGLightbox();
+  
+    // Initialize Isotope for filtering
+    var $grid = $('.flex-container').isotope({
+      itemSelector: '.flex-item',
+      layoutMode: 'fitRows'
+    });
+  
+    // Filtering functionality
+    $('#aktiv-gromadi-flters li').on('click', function() {
+      $("#aktiv-gromadi-flters li").removeClass('filter-active');
+      $(this).addClass('filter-active');
+  
+      var filterValue = $(this).attr('data-filter');
+      $grid.isotope({ filter: filterValue });
+    });
+  
+    // Close popup when clicking outside content
+    document.getElementById('popup').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+  });
+  
+  function fetchAktivGromadiDetails(postId) {
+    fetch(`/aktiv-gromadi-details-content/${postId}/`)
+      .then(response => response.text())
+      .then(html => {
+        const popupContent = document.getElementById('popup-body');
+        popupContent.innerHTML = html;
+        showPopup();
+        initGLightbox();
+        attachCloseButtonEvent();
+      });
+  }
+  
+  function showPopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'block';
+    popup.style.backgroundColor = 'rgba(8, 20, 10, 0.8)'; // Using --color0 with opacity
+  }
+  
+  function attachCloseButtonEvent() {
+    const closeButton = document.querySelector('.close');
+    if (closeButton) {
+      closeButton.addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+      });
+    }
+  }
+  
+  function initGLightbox() {
+    const lightbox = GLightbox({
+      selector: '.aktiv-gromadi-lightbox'
+    });
+  }
+</script>
+{% endblock extra_js %}

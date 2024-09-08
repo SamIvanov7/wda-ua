@@ -1,0 +1,13 @@
+**/__pycache__/
+**/__pycache__/*
+
+_static/
+_templates/
+my_env/ 
+media/*
+
+.env
+my.cnf
+
+db.sqlite3
+ping_file.json

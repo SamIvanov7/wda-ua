@@ -1,0 +1,73 @@
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar %}
+
+<style>
+    .swiper-slide.slider__item {
+        height: 800px; /* Or whatever height you want */
+      }
+</style>
+<div class="aktiv-gromadi-popup-content">
+    <button class="aktiv-gromadi-close-btn" aria-label="Close popup">&times;</button>
+    <div class="aktiv-gromadi-image-section">
+        <div class="aktiv-gromadi-details-slider swiper">
+            <div class="swiper-wrapper">
+                {% for block in post.content %}
+                    {% if block.block_type == 'image' %}
+                        {% image block.value.image fill-600x400 as img %}
+                        <div class="swiper-slide">
+                            <img src="{{ img.url }}" alt="{{ block.value.image.title }}">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    
+    <div class="aktiv-gromadi-description-section">
+        <div class="aktiv-gromadi-description">
+            {% for block in post.content %}
+                {% if block.block_type == 'head' %}
+                    <h2>{{ block.value.title }}</h2>
+                {% elif block.block_type == 'rich_text' %}
+                    <p>{{ block.value|richtext }}</p>
+                {% elif block.block_type == 'blockquote' %}
+                    <blockquote>{{ block.value }}</blockquote>
+                {% elif block.block_type == 'code' %}
+                    <pre><code>{{ block.value.code }}</code></pre>
+                {% elif block.block_type == 'table' %}
+                    {{ block.value|safe }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function initSwiper() {
+        new Swiper('.aktiv-gromadi-details-slider', {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    }
+
+    
+    initSwiper();
+
+    
+    const closeBtn = document.querySelector('.aktiv-gromadi-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            const popup = this.closest('.aktiv-gromadi-popup');
+            if (popup) {
+                popup.remove();
+            }
+        });
+    }
+});
+</script>

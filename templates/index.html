@@ -1,0 +1,181 @@
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+        {% endblock %}
+    </title>
+    <meta name="description" content="{% block meta_description %}{{ page.search_description }}{% endblock %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="{% static 'img/favicon.svg' %}">
+
+    <!-- Global stylesheets -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/core.css' %}">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,700italic,300,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles/crisp.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles/tables.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles/guilatrova.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles/author.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles/coding.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles/summary.css' %}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/boxicons/css/boxicons.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/glightbox/css/glightbox.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/swiper/swiper-bundle.min.css' %}">
+
+    <!-- jQuery and jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css">
+
+    <!-- Template Main CSS File -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+    {% include '_partail/header.html' %}
+    <main id="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h3>WDA UA e.V.</h3>
+                        <p>
+                            Holzstr. 20<br>
+                            08412 Werdau<br>
+                            Germany <br><br>
+                            <strong>Phone:</strong> +49 123 456 7890<br>
+                            <strong>Email:</strong> info@wda-ua.de<br>
+                        </p>
+                    </div>
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Nützliche Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Über uns</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Dokumente</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Datenschutz</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Kontakt</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Unsere documents</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Integration</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Bildung</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Entwicklung</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Kulturelle Veranstaltungen</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Soziale Unterstützung</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Join Our Newsletter</h4>
+                        <p>Erhalten Sie die neuesten Updates und Nachrichten von unserem Verein.</p>
+                        <form action="" method="post">
+                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container d-md-flex py-4">
+            <div class="me-md-auto text-center text-md-start">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>WDA UA e.V.</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    Designed by <a href="https://bootstrapmade.com/">Sam Ivanov</a>
+                </div>
+            </div>
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script type="text/javascript" src="{% static 'js/core.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.0-beta.2/jquery-ui.min.js" integrity="sha256-E7PeZTkHU61hmvmEMwtUMgm9Aff574wswy5F1Y0oIRA=" crossorigin="anonymous"></script>
+    <script>
+
+
+        // Video Presentation
+        $(document).ready(function() {
+            // Implement video presentation functionality here
+            $('#video-container').html('<iframe width="100%" height="315" src="assets/img/video.mp4" frameborder="0" allowfullscreen></iframe>');
+        });
+
+        // Last Event
+        $(document).ready(function() {
+            // Implement last event functionality here
+            $('#last-event').html('<!-- Last event details go here -->');
+        });
+    </script>
+    <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    {% block extra_js %}
+    {% endblock %}
+
+    {% if settings.config.GoogleAnalyticsSettings.is_enabled %}
+        {% with settings.config.GoogleAnalyticsSettings.account_id as account_id %}
+            {% if account_id %}
+                <!-- Global site tag (gtag.js) - Google Analytics -->
+                <script async src="https://www.googletagmanager.com/gtag/js?id={{account_id}}"></script>
+                <script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() { dataLayer.push(arguments); }
+                    gtag('js', new Date());
+                    gtag('config', '{{account_id}}');
+                </script>
+            {% else %}
+                <!-- YOU DID FORGET TO SETUP ACCOUNT-ID FOR GOOGLE ANALYTICS -->
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+</body>
+
+</html>

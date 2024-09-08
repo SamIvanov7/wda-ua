@@ -1,0 +1,181 @@
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar custom_filters %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.2, user-scalable=no, maximum-scale=1.2, minimum-scale=1.2" />
+  
+  <title>
+    {% block title %}
+      {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+    {% endblock %}
+    {% block title_suffix %}
+      {% wagtail_site as current_site %}
+      {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+    {% endblock %}
+  </title>
+
+  <meta name="description" content="{% block meta_description %}{{ page.search_description }}{% endblock %}" />
+  <link rel="icon" href="{% static 'assets/img/wda-favicon.ico' %}" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="{% static 'css/styles/tables.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/styles/guilatrova.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/styles/coding.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/styles/summary.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/libs/swiper/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/custom-datepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/second-slide.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/third-slide.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/fourth-slide.css' %}" />
+  
+  {% block extra_css %}{% endblock %}
+
+
+</head>
+
+<body>
+  {% comment %} <div class="page-bg"></div>
+
+  <div class="preloader">
+      <div class="preloader-box">
+          <div>З</div>
+          <div>А</div>
+          <div>Г</div>
+          <div>Р</div>
+          <div>У</div>
+          <div>З</div>
+          <div>К</div>
+          <div>А</div>
+      </div>
+  </div> {% endcomment %}
+  
+  {% block content %}{% endblock %}
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const video = document.getElementById('video-uber-uns');
+      const videoWrapper = document.getElementById('video-wrapper');
+      
+      let isFullscreen = false;
+      
+      function setVideoSize(scale) {
+        if (video) {
+          video.style.width = `${scale}%`;
+          video.style.height = `${scale}%`;
+        }
+      }
+      
+      function enterFullscreen() {
+        videoWrapper.classList.add('fullscreen');
+        document.body.style.overflow = 'hidden';
+        setVideoSize(100);
+        isFullscreen = true;
+      }
+      
+      function exitFullscreen() {
+        videoWrapper.classList.remove('fullscreen');
+        document.body.style.overflow = 'auto';
+        setVideoSize(100);
+        isFullscreen = false;
+      }
+      
+      function toggleFullscreen() {
+        if (isFullscreen) {
+          exitFullscreen();
+        } else {
+          enterFullscreen();
+        }
+      }
+      
+      function handleEscapeKey(event) {
+        if (event.key === 'Escape' && isFullscreen) {
+          exitFullscreen();
+        }
+      }
+      
+      videoWrapper.addEventListener('click', toggleFullscreen);
+      document.addEventListener('keydown', handleEscapeKey);
+    
+      initializeVideo('#video-uber-uns', 'assets/img/velikden.mp4', 500);
+      
+      window.onload = handleWindowLoad;
+    });
+    
+    function initializeVideo(selector, src, width) {
+      const video = document.querySelector(selector);
+      if (video) {
+        video.src = "{% static '${src}' %}" type="video/mp4";
+        video.width = width;
+        video.autoplay = true;
+        video.muted = true;
+        video.load();
+      }
+    }
+    
+    
+      // Auto-play script
+      function checkScroll() {
+        const video = document.getElementById('video-uber-uns');
+        const rect = video.getBoundingClientRect();
+        const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+        
+        if (rect.top >= 0 && rect.bottom <= viewHeight) {
+          if (video.paused) {
+            video.play().catch(error => {
+              console.error("Auto-play was prevented:", error);
+            });
+          }
+        } else {
+          if (!video.paused) {
+            video.pause();
+          }
+        }
+      }
+    
+      // Check scroll position on load
+      checkScroll();
+    
+      // Check scroll position on scroll
+      window.addEventListener('scroll', checkScroll);
+    
+      // Pause video when it goes out of view
+      const video = document.getElementById('video-uber-uns');
+      video.addEventListener('ended', function() {
+        video.currentTime = 0;
+      });
+    
+    
+    </script>
+  
+    
+
+  <!-- jQuery and jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" defer></script>
+
+  <!-- Libraries and Plugins -->
+  <script src="{% static 'assets/libs/btn/anim-menu-btn.min.js' %}" defer></script>
+  <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}" defer></script>
+
+  <!-- Custom Scripts -->
+  <script src="{% static 'assets/js/custom-calendar.js' %}" defer></script>
+  <script src="{% static 'js/core.js' %}"></script>
+  
+  <script src="{% static 'assets/js/main.js' %}" defer></script>
+  <script src="{% static 'assets/js/app.js' %}" defer></script>
+
+  {% block extra_js %}{% endblock %}
+</body>
+
+</html>

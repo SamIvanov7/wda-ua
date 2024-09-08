@@ -1,0 +1,45 @@
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar humanize custom_filters %}
+
+<div id="third_slide" class="header-content__slide header-content__slide--third">
+    <div class="header-content__info3">
+      <h5 style="margin-bottom: 5rem;">Veranstellungen</h5>
+      <section id="aktiv-gromadi" class="aktiv-gromadi-section">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            {% for i in "012"|make_list %}
+              <div class="swiper-slide">
+                <div class="row">
+                  {% with start=forloop.counter0|multiply:3 end=forloop.counter0|multiply:3|add:3 %}
+                    {% slice_list result start end as slide_posts %}
+                    {% for post in slide_posts %}
+                      <div class="col-lg-4 col-md-6 aktiv-gromadi-item filter-{{ post.slug|slugify }}">
+                        <div class="aktiv-gromadi-wrap">
+                          <a href="javascript:void(0);" onclick="fetchAktivGromadiDetails({{ post.pk }})" class="aktiv-gromadi-link">
+                            {% with first_image=post.content|first_image %}
+                              {% if first_image %}
+                              {% image first_image.image fill-300x200 as img %}
+                                <div class="aktiv-gromadi-img">
+                                  <img src="{{ img.url }}" alt="{{ img.alt }}">
+                                </div>
+                              {% endif %}
+                            {% endwith %}
+                            <div class="aktiv-gromadi-info">
+                              <h4>{{ post.title }}</h4>
+                              <p>{{ post.excerpt|truncatewords:20 }}</p>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  {% endwith %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </section>
+    </div>
+  </div>

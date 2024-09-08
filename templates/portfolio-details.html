@@ -1,0 +1,134 @@
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aktiv Gromadi Details</title>
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/libs/swiper/swiper-bundle.min.css' %}">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{% static 'assets/css/aktiv-gromadi.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/third-slide.css' %}">
+
+</head>
+
+<body>
+  <main id="main" class="aktiv-gromadi-encapsulated">
+    <section id="aktiv-gromadi-details" class="aktiv-gromadi-details">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="aktiv-gromadi-details-slider swiper">
+              <div class="swiper-wrapper">
+                {% for block in post.content %}
+                  {% if block.block_type == 'image' %}
+                    {% image block.value.image fill-850x500 as img %}
+                    <div class="swiper-slide">
+                      <img src="{{ img.url }}" alt="{{ block.value.image.title }}">
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <div class="swiper-pagination"></div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="aktiv-gromadi-info">
+              {% for block in post.content %}
+                {% if block.block_type == 'head' %}
+                  <h3 class="info-title">{{ block.value.title }}</h3>
+                {% endif %}
+                {% if block.block_type == 'date' and not date_displayed %}
+                  <h4 class="info-date">
+                    {{ block.value|date:"F d, Y" }}
+                  </h4>
+                  {% with date_displayed=True %}{% endwith %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="aktiv-gromadi-description">
+              {% for block in post.content %}
+                {% if block.block_type == 'rich_text' %}
+                  {{ block.value|richtext }}
+                {% elif block.block_type == 'blockquote' %}
+                  <blockquote>{{ block.value }}</blockquote>
+                {% elif block.block_type == 'code' %}
+                  <pre><code>{{ block.value.code }}</code></pre>
+                {% elif block.block_type == 'table' %}
+                  {{ block.value|safe }}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+
+  <script>
+    function initSwiper() {
+      const swiperElement = document.querySelector('.aktiv-gromadi-details-slider');
+      if (swiperElement) {
+        const swiper = new Swiper(swiperElement, {
+          slidesPerView: 1,
+          spaceBetween: 30,
+          loop: true,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            type: 'bullets',
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          keyboard: {
+            enabled: true,
+          },
+          on: {
+            init: function () {
+              console.log('Swiper initialized');
+            },
+          },
+        });
+
+        // Pause autoplay on hover
+        swiperElement.addEventListener('mouseenter', function () {
+          swiper.autoplay.stop();
+        });
+
+        swiperElement.addEventListener('mouseleave', function () {
+          swiper.autoplay.start();
+        });
+      }
+    }
+    </script>
+</body>
+
+</html>

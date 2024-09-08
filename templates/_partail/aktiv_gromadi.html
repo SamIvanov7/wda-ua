@@ -1,0 +1,50 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% load custom_filters %}
+<section id="aktiv-gromadi" class="aktiv-gromadi">
+    <div class="container">
+        <div class="section-title">
+            <h2>Kulturelle Veranstaltungen</h2>
+            <p>Einblicke in unsere Projekte und Veranstaltungen.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <ul id="aktiv-gromadi-flters">
+                    <li data-filter="*" class="filter-active">All</li>
+                    {% if result.object_list %}
+        {% for post in result.object_list %}  
+            
+                <li data-filter=".filter-{{ post.slug|slugify }}">{{ post.page_ptr_id }}</li>
+
+        {% endfor %}
+    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="row aktiv-gromadi-container">
+            {% if result.object_list %}
+                {% for post in result.object_list %}
+                    <div class="col-lg-4 col-md-6 aktiv-gromadi-item filter-{{ post.title|slugify }}">
+                        {% with first_image=post.content|first_image %}
+                            {% if first_image %}
+                                {% image first_image.image fill-416x312 as img %}
+                                <img src="{{ img.url }}" class="img-fluid" alt="{{ first_image.image.title }}">
+                                {% if first_image.caption %}
+                                    <figcaption>{{ first_image.caption }}</figcaption>
+                                {% endif %}
+                            {% endif %}
+                        {% endwith %}
+                        <div class="aktiv-gromadi-info">
+                            <h4>{{ post.title }}</h4>
+                            {% with first_image=post.content|first_image %}
+                            {% if first_image %}
+                            <a href="{% image first_image.image original as img %}{{ img.url }}" data-gallery="aktiv-gromadiGallery" class="aktiv-gromadi-lightbox preview-link" title="{{ post.title }}"><i class="bx bx-plus"></i></a>
+                            <a href="{% url 'aktiv-gromadi_details' post.pk %}" data-gallery="aktiv-gromadiDetailsGallery" data-glightbox="type: external" class="aktiv-gromadi-details-lightbox details-link" title="aktiv-gromadi Details"><i class="bx bx-link"></i></a>
+                            {% endif %}
+                            {% endwith %}
+                          </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+  </section><!-- End aktiv-gromadi Section -->

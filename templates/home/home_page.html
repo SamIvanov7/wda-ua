@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar humanize custom_filters %}
+
+{% block content %}
+<div class="swiper slider">
+  <div class="slider-ui">
+    <div class="container header-wrapper">
+      <div class="top-line">
+        {% include '_partail/header.html' %}
+      </div>
+      <div class="header-content">
+        {% include '_partials/first_slide.html' %}
+        {% include '_partials/second_slide.html' %}
+        {% include '_partials/third_slide.html' %}
+        {% include '_partials/fourth_slide.html' %}
+        <div class="header-bottom"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="swiper-wrapper">
+    {% include '_partials/slider_items.html' %}
+  </div>
+</div>
+
+{% include '_partials/popup.html' %}
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'assets/js/swiper_init.js' %}"></script>
+<script src="{% static 'assets/js/aktiv_gromadi_swiper.js' %}"></script>
+<script src="{% static 'assets/js/aktiv_gromadi_filter.js' %}"></script>
+{% endblock extra_js %}

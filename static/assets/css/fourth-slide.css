@@ -1,0 +1,99 @@
+@import '../libs/btn/anim-menu-btn.css';
+@import '../css/vars.css';
+@import '../css/grid.css';
+
+
+
+.header-content__slide--fourth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .header-content__slide--fourth .header-content__info4 {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+  }
+  
+  .header-content__slide--fourth h5 {
+    font-size: calc(var(--index) * 3.95);
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .header-content__slide--fourth .contact-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  
+  .header-content__slide--fourth .contact-info,
+  .header-content__slide--fourth .board-members {
+    flex: 1;
+    background-color: var(--light-gray-color-bg);
+    padding: 30px;
+    border-radius: 10px;
+  }
+  
+  .header-content__slide--fourth .contact-info h4,
+  .header-content__slide--fourth .board-members h4 {
+    font-size: calc(var(--index) * 1.5);
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--white-color);
+  }
+  
+  .header-content__slide--fourth .contact-info p,
+  .header-content__slide--fourth .board-members li {
+    font-size: calc(var(--index) * 0.9);
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: var(--white-color);
+  }
+  
+  .header-content__slide--fourth .board-members ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .header-content__slide--fourth .contact-info a {
+    color: var(--green-color);
+    text-decoration: none;
+  }
+  
+  .header-content__slide--fourth .contact-info a:hover {
+    text-decoration: underline;
+  }
+  
+  .header-content__slide--fourth .social-media {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .header-content__slide--fourth .social-icon {
+    font-size: calc(var(--index) * 2);
+    color: var(--white-color);
+    margin: 0 15px;
+    transition: color 0.3s ease;
+  }
+  
+  .header-content__slide--fourth .social-icon:hover {
+    color: var(--green-color);
+  }
+  
+  @media (max-width: 768px) {
+    .header-content__slide--fourth .contact-container {
+      flex-direction: column;
+    }
+  
+    .header-content__slide--fourth .contact-info,
+    .header-content__slide--fourth .board-members {
+      max-width: 100%;
+    }
+  }
