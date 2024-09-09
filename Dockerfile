@@ -11,9 +11,8 @@ EXPOSE 80
 ENV PYTHONUNBUFFERED=1 \
     PIPENV_VENV_IN_PROJECT=1 \
     PIPENV_IGNORE_VIRTUALENVS=1 \
+    LANG=en_US.UTF-8 \
     PATH="/home/wagtail/.local/bin:${PATH}"
-
-ENV LANG en_US.UTF-8
 
 # Install system dependencies
 RUN apt-get update --yes --quiet && \
@@ -30,11 +29,11 @@ RUN apt-get update --yes --quiet && \
     pkg-config \
     apache2 \
     apache2-dev \
-    libapache2-mod-wsgi-py3 && \
-    rm -rf /var/lib/apt/lists/*
+    libapache2-mod-wsgi-py3 \
+    locales && \
+    rm -rf /var/lib/apt/lists/* && \
+    locale-gen en_US.UTF-8
 
-RUN apt-get update && apt-get install -y locales \
-    && locale-gen en_US.UTF-8
 # Upgrade pip and setuptools
 RUN pip install --upgrade pip setuptools
 
@@ -63,4 +62,4 @@ RUN a2enmod wsgi
 RUN python manage.py collectstatic --noinput --clear
 
 # Runtime command
-CMD set -xe; python manage.py migrate --noinput; apache2ctl -D FOREGROUND
+CMD ["sh", "-c", "set -xe; python manage.py migrate --noinput; apache2ctl -D FOREGROUND"]
