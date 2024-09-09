@@ -1,7 +1,6 @@
 anyascii==0.3.1
 asgiref==3.5.2
 async-timeout==4.0.2
-backports.zoneinfo==0.2.1
 beautifulsoup4==4.11.1
 black==22.10.0
 certifi==2022.9.24
@@ -26,6 +25,7 @@ html5lib==1.1
 idna==3.4
 l18n==2021.3
 mypy-extensions==0.4.3
+mysqlclient==2.1.1
 openpyxl==3.0.10
 packaging==21.3
 pathspec==0.10.1
@@ -41,7 +41,8 @@ telepath==0.3
 tomli==2.0.1
 typing-extensions==4.4.0
 urllib3==1.26.12
-wagtail==4.1
+wagtail==4.1.1
 wagtail-django-simple-captcha==1.0
 webencodings==0.5.1
+Willow==1.4.1
 wrapt==1.14.1
