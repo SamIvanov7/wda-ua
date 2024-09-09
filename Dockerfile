@@ -13,6 +13,8 @@ ENV PYTHONUNBUFFERED=1 \
     PIPENV_IGNORE_VIRTUALENVS=1 \
     PATH="/home/wagtail/.local/bin:${PATH}"
 
+ENV LANG en_US.UTF-8
+
 # Install system dependencies
 RUN apt-get update --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
@@ -31,6 +33,8 @@ RUN apt-get update --yes --quiet && \
     libapache2-mod-wsgi-py3 && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y locales \
+    && locale-gen en_US.UTF-8
 # Upgrade pip and setuptools
 RUN pip install --upgrade pip setuptools
 
