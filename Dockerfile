@@ -29,7 +29,6 @@ RUN apt-get update --yes --quiet && \
     pkg-config \
     apache2 \
     apache2-dev \
-    libapache2-mod-wsgi-py3 \
     locales && \
     rm -rf /var/lib/apt/lists/* && \
     locale-gen en_US.UTF-8
@@ -37,7 +36,9 @@ RUN apt-get update --yes --quiet && \
 # Upgrade pip and setuptools
 RUN pip install --upgrade pip setuptools
 
-RUN python -c "import encodings"
+# Install mod_wsgi from source to ensure compatibility with Python 3.11
+RUN pip install mod_wsgi
+
 # Install pipenv
 RUN pip install pipenv
 
@@ -56,8 +57,9 @@ COPY --chown=wagtail:wagtail . .
 # Copy Apache configuration
 COPY apache2.conf /etc/apache2/sites-available/000-default.conf
 
-# Enable Apache modules
-RUN a2enmod wsgi
+# Enable Apache modules and configure mod_wsgi
+RUN mod_wsgi-express install-module > /etc/apache2/mods-available/wsgi.load && \
+    a2enmod wsgi
 
 # Collect static files
 RUN python manage.py collectstatic --noinput --clear
