@@ -8,11 +8,10 @@ RUN useradd wagtail
 EXPOSE 8000
 
 # Set environment variables.
-# 1. Force Python stdout and stderr streams to be unbuffered.
-# 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
-#    command.
 ENV PYTHONUNBUFFERED=1 \
-    PORT=8000
+    PORT=8000 \
+    PIPENV_VENV_IN_PROJECT=1 \
+    PIPENV_IGNORE_VIRTUALENVS=1
 
 # Install system packages required by Wagtail and Django.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
@@ -37,10 +36,7 @@ WORKDIR /app
 COPY Pipfile Pipfile.lock ./
 
 # Install dependencies using Pipenv
-RUN pipenv install --system --deploy
-
-# Install mysqlclient
-RUN pipenv install mysqlclient
+RUN pipenv install --deploy --system
 
 # Create public directory and set permissions
 RUN mkdir -p /app/public && chown wagtail:wagtail /app/public && chmod 777 /app/public
