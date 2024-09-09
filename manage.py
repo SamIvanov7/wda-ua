@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.dev")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production")
 
     from django.core.management import execute_from_command_line
 

@@ -18,6 +18,11 @@ django-redis = "*"
 elasticsearch = "*"
 mysqlclient = "*"
 async-timeout = "*"
+webencodings = "*"
+urllib3 = "*"
+html5lib = "*"
+deprecated = "*"
+packaging = "*"
 
 [dev-packages]
 
