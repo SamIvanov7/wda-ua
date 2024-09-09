@@ -46,11 +46,10 @@ RUN pipenv install --deploy --system
 # Install backports.zoneinfo for Python 3.8
 RUN pip install backports.zoneinfo
 
-# Create public directory and set permissions
-RUN mkdir -p /app/public && chown wagtail:wagtail /app/public && chmod 777 /app/public
-
-# Set this directory to be owned by the "wagtail" user.
-RUN chown wagtail:wagtail /app
+# Create necessary directories and set permissions
+RUN mkdir -p /app/public /var/log/apache2 /var/run/apache2 && \
+    chown -R wagtail:wagtail /app /var/log/apache2 /var/run/apache2 /etc/apache2 && \
+    chmod 755 /app /var/log/apache2 /var/run/apache2
 
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
@@ -63,9 +62,6 @@ RUN a2enmod wsgi
 
 # Collect static files.
 RUN python manage.py collectstatic --noinput --clear
-
-# Use user "wagtail" to run the build commands below and the server itself.
-USER wagtail
 
 # Runtime command
 CMD set -xe; python manage.py migrate --noinput; apache2ctl -D FOREGROUND
