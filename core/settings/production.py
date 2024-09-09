@@ -9,7 +9,7 @@ config_file = "."
 env = environ.Env(
     # Set default values for required environment variables
     DEBUG=(bool, False),
-    SECRET_KEY=(str, 'default-secret-key-for-development-only'),
+    SECRET_KEY=(str, 'django-insecure-azrlvwwr3@%)31j*sc)z)vlj9s0a9&rqu7-0mqapb*5t#3fhqw'),
     HOST=(str, '159.89.22.211'),
     PUBLIC_DIR=(str, os.path.join(BASE_DIR, 'public'))
 )
