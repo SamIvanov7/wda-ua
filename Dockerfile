@@ -51,6 +51,7 @@ RUN mkdir -p /app/public /var/log/apache2 /var/run/apache2 && \
     chown -R wagtail:wagtail /app /var/log/apache2 /var/run/apache2 /etc/apache2 && \
     chmod 755 /app /var/log/apache2 /var/run/apache2
 
+RUN mkdir -p /home/wagtail && chown wagtail:wagtail /home/wagtail
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
 
@@ -64,4 +65,4 @@ RUN a2enmod wsgi
 RUN python manage.py collectstatic --noinput --clear
 
 # Runtime command
-CMD set -xe; python manage.py migrate --noinput; apache2ctl -D FOREGROUND
+CMD set -xe; python manage.py migrate --noinput; apache2-foreground
