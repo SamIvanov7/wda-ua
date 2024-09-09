@@ -37,6 +37,7 @@ RUN apt-get update --yes --quiet && \
 # Upgrade pip and setuptools
 RUN pip install --upgrade pip setuptools
 
+RUN python -c "import encodings"
 # Install pipenv
 RUN pip install pipenv
 
