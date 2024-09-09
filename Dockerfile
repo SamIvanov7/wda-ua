@@ -1,5 +1,5 @@
 # Use an official Python runtime based on Debian slim as a parent image.
-FROM python:3.12-slim
+FROM python:3.12-slim-buster
 
 # Add user that will be used in the container.
 RUN useradd wagtail
@@ -19,8 +19,8 @@ RUN apt-get update --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
     build-essential \
     libpq-dev \
-    libmariadb-dev-compat \
-    libjpeg62-turbo-dev \
+    libmariadb-dev-compat \  # Updated package
+libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
     default-libmysqlclient-dev \
