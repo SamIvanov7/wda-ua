@@ -1,26 +1,25 @@
-# Use an official Python runtime based on Debian slim as a parent image.
+# Use an official Python runtime as a parent image
 FROM python:3.12-slim-buster
 
-# Add user that will be used in the container.
+# Add user for the application
 RUN useradd wagtail
 
-# Port used by this container to serve HTTP.
+# Expose the application on port 80
 EXPOSE 80
 
-# Set environment variables.
+# Set environment variables
 ENV PYTHONUNBUFFERED=1 \
-    PORT=80 \
     PIPENV_VENV_IN_PROJECT=1 \
     PIPENV_IGNORE_VIRTUALENVS=1 \
     PATH="/home/wagtail/.local/bin:${PATH}"
 
-# Install system packages required by Wagtail and Django.
+# Install system dependencies
 RUN apt-get update --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
     build-essential \
     libpq-dev \
-    libmariadb-dev-compat \  # Updated package
-libjpeg62-turbo-dev \
+    libmariadb-dev-compat \
+    libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
     default-libmysqlclient-dev \
@@ -32,12 +31,13 @@ libjpeg62-turbo-dev \
     libapache2-mod-wsgi-py3 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
+# Upgrade pip and setuptools
+RUN pip install --upgrade pip setuptools
+
 # Install pipenv
 RUN pip install pipenv
 
-# Use /app folder as a directory where the source code is stored.
+# Set working directory
 WORKDIR /app
 
 # Copy Pipfile and Pipfile.lock
@@ -46,12 +46,7 @@ COPY Pipfile Pipfile.lock ./
 # Install dependencies using Pipenv
 RUN pipenv install --deploy --system
 
-# Create necessary directories and set permissions
-RUN mkdir -p /app/public /var/log/apache2 /var/run/apache2 /home/wagtail && \
-    chown -R wagtail:wagtail /app /var/log/apache2 /var/run/apache2 /etc/apache2 /home/wagtail && \
-    chmod 755 /app /var/log/apache2 /var/run/apache2 /home/wagtail
-
-# Copy the source code of the project into the container.
+# Copy the source code of the project into the container
 COPY --chown=wagtail:wagtail . .
 
 # Copy Apache configuration
@@ -60,7 +55,7 @@ COPY apache2.conf /etc/apache2/sites-available/000-default.conf
 # Enable Apache modules
 RUN a2enmod wsgi
 
-# Collect static files.
+# Collect static files
 RUN python manage.py collectstatic --noinput --clear
 
 # Runtime command
