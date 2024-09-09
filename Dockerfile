@@ -32,6 +32,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libapache2-mod-wsgi-py3 \
     && rm -rf /var/lib/apt/lists/*
 
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
 # Install pipenv
 RUN pip install pipenv
 
