@@ -12,7 +12,8 @@ ENV PYTHONUNBUFFERED=1 \
     PORT=80 \
     PIPENV_VENV_IN_PROJECT=1 \
     PIPENV_IGNORE_VIRTUALENVS=1 \
-    PATH="/home/wagtail/.local/bin:${PATH}"
+    PATH="/home/wagtail/.local/bin:${PATH}" \
+    PYTHONPATH="/usr/local/lib/python3.8/site-packages:${PYTHONPATH}"
 
 # Install system packages required by Wagtail and Django.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
