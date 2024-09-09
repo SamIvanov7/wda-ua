@@ -25,6 +25,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     default-libmysqlclient-dev \
     gcc \
     curl \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pipenv
