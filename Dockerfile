@@ -47,11 +47,10 @@ RUN pipenv install --deploy --system
 RUN pip install backports.zoneinfo
 
 # Create necessary directories and set permissions
-RUN mkdir -p /app/public /var/log/apache2 /var/run/apache2 && \
-    chown -R wagtail:wagtail /app /var/log/apache2 /var/run/apache2 /etc/apache2 && \
-    chmod 755 /app /var/log/apache2 /var/run/apache2
+RUN mkdir -p /app/public /var/log/apache2 /var/run/apache2 /home/wagtail && \
+    chown -R wagtail:wagtail /app /var/log/apache2 /var/run/apache2 /etc/apache2 /home/wagtail && \
+    chmod 755 /app /var/log/apache2 /var/run/apache2 /home/wagtail
 
-RUN mkdir -p /home/wagtail && chown wagtail:wagtail /home/wagtail
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
 
@@ -65,4 +64,4 @@ RUN a2enmod wsgi
 RUN python manage.py collectstatic --noinput --clear
 
 # Runtime command
-CMD set -xe; python manage.py migrate --noinput; apache2-foreground
+CMD set -xe; python manage.py migrate --noinput; apache2ctl -D FOREGROUND
