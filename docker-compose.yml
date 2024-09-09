@@ -3,13 +3,13 @@ version: '3.8'
 services:
   web:
     build: .
-    command: gunicorn core.wsgi:application
+    command: apache2ctl -D FOREGROUND
     volumes:
       - .:/app
       - static_volume:/app/public
       - media_volume:/app/media
     ports:
-      - "8080:8080"
+      - "80:80"
     env_file:
       - .env
     depends_on:
@@ -26,17 +26,6 @@ services:
 
   redis:
     image: redis:6.2
-
-  nginx:
-    image: nginx:1.21
-    volumes:
-      - static_volume:/app/public:ro
-      - media_volume:/app/media:ro
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - "8080:80"
-    depends_on:
-      - web
 
 volumes:
   mysql_data:

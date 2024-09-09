@@ -30,7 +30,6 @@ ALLOWED_HOSTS = [
 
 SECURE_SSL_REDIRECT = True
 
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -45,7 +44,6 @@ LOGGING = {
     },
 }
 
-
 PUBLIC_DIR = env("PUBLIC_DIR")
 
 STATIC_ROOT = os.path.join(PUBLIC_DIR, "crisp_static")
@@ -53,7 +51,6 @@ STATIC_URL = "/crisp_static/"
 
 MEDIA_ROOT = os.path.join(PUBLIC_DIR, "crisp_media")
 MEDIA_URL = "/crisp_media/"
-
 
 # settings.py
 DATABASES = {
@@ -78,7 +75,6 @@ CACHES = {
 }
 
 REDIS_PAGE_STATICS_SERVICE_NAME = "codingdz:pages_statistics"
-
 
 SILENCED_SYSTEM_CHECKS = [
     "captcha.recaptcha_test_key_error",

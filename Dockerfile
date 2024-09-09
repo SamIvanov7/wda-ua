@@ -5,11 +5,11 @@ FROM python:3.8.1-slim-buster
 RUN useradd wagtail
 
 # Port used by this container to serve HTTP.
-EXPOSE 8000
+EXPOSE 80
 
 # Set environment variables.
 ENV PYTHONUNBUFFERED=1 \
-    PORT=8000 \
+    PORT=80 \
     PIPENV_VENV_IN_PROJECT=1 \
     PIPENV_IGNORE_VIRTUALENVS=1 \
     PATH="/home/wagtail/.local/bin:${PATH}"
@@ -26,6 +26,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     gcc \
     curl \
     pkg-config \
+    apache2 \
+    apache2-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pipenv
@@ -43,8 +45,8 @@ RUN pipenv install --deploy --system
 # Install backports.zoneinfo for Python 3.8
 RUN pip install backports.zoneinfo
 
-# Explicitly install gunicorn and other dependencies
-RUN pip install gunicorn redis async-timeout
+# Install mod_wsgi
+RUN pip install mod_wsgi
 
 # Create public directory and set permissions
 RUN mkdir -p /app/public && chown wagtail:wagtail /app/public && chmod 777 /app/public
@@ -55,11 +57,17 @@ RUN chown wagtail:wagtail /app
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
 
-# Use user "wagtail" to run the build commands below and the server itself.
-USER wagtail
+# Copy Apache configuration
+COPY apache2.conf /etc/apache2/sites-available/000-default.conf
+
+# Enable Apache modules
+RUN a2enmod wsgi
 
 # Collect static files.
 RUN python manage.py collectstatic --noinput --clear
 
+# Use user "wagtail" to run the build commands below and the server itself.
+USER wagtail
+
 # Runtime command
-CMD set -xe; python manage.py migrate --noinput; gunicorn core.wsgi:application
+CMD set -xe; python manage.py migrate --noinput; apache2ctl -D FOREGROUND
