@@ -43,8 +43,8 @@ RUN pipenv install --deploy --system
 # Install backports.zoneinfo for Python 3.8
 RUN pip install backports.zoneinfo
 
-# Explicitly install gunicorn
-RUN pip install gunicorn
+# Explicitly install gunicorn and other dependencies
+RUN pip install gunicorn redis async-timeout
 
 # Create public directory and set permissions
 RUN mkdir -p /app/public && chown wagtail:wagtail /app/public && chmod 777 /app/public

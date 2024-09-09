@@ -17,6 +17,7 @@ redis = "*"
 django-redis = "*"
 elasticsearch = "*"
 mysqlclient = "*"
+async-timeout = "*"
 
 [dev-packages]
 
