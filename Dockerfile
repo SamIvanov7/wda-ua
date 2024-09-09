@@ -28,6 +28,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     pkg-config \
     apache2 \
     apache2-dev \
+    libapache2-mod-wsgi-py3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pipenv
@@ -44,9 +45,6 @@ RUN pipenv install --deploy --system
 
 # Install backports.zoneinfo for Python 3.8
 RUN pip install backports.zoneinfo
-
-# Install mod_wsgi
-RUN pip install mod_wsgi
 
 # Create public directory and set permissions
 RUN mkdir -p /app/public && chown wagtail:wagtail /app/public && chmod 777 /app/public
