@@ -1,4 +1,4 @@
-# Use an official Python runtime based on Debian 10 "buster" as a parent image.
+# Use an official Python runtime based on Debian slim as a parent image.
 FROM python:3.12-slim
 
 # Add user that will be used in the container.
@@ -12,14 +12,14 @@ ENV PYTHONUNBUFFERED=1 \
     PORT=80 \
     PIPENV_VENV_IN_PROJECT=1 \
     PIPENV_IGNORE_VIRTUALENVS=1 \
-    PATH="/home/wagtail/.local/bin:${PATH}" \
-    PYTHONPATH="/usr/local/lib/python3.8/site-packages:${PYTHONPATH}"
+    PATH="/home/wagtail/.local/bin:${PATH}"
 
 # Install system packages required by Wagtail and Django.
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+RUN apt-get update --yes --quiet && \
+    apt-get install --yes --quiet --no-install-recommends \
     build-essential \
     libpq-dev \
-    libmariadbclient-dev \
+    libmariadb-dev-compat \
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
@@ -29,8 +29,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     pkg-config \
     apache2 \
     apache2-dev \
-    libapache2-mod-wsgi-py3 \
-    && rm -rf /var/lib/apt/lists/*
+    libapache2-mod-wsgi-py3 && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
@@ -45,9 +45,6 @@ COPY Pipfile Pipfile.lock ./
 
 # Install dependencies using Pipenv
 RUN pipenv install --deploy --system
-
-# Install backports.zoneinfo for Python 3.8
-RUN pip install backports.zoneinfo
 
 # Create necessary directories and set permissions
 RUN mkdir -p /app/public /var/log/apache2 /var/run/apache2 /home/wagtail && \
