@@ -15,6 +15,7 @@ wagtail-django-simple-captcha = "*"
 django-browser-reload = "*"
 redis = "*"
 django-redis = "*"
+elasticsearch = "*"
 
 [dev-packages]
 
