@@ -11,7 +11,8 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED=1 \
     PORT=8000 \
     PIPENV_VENV_IN_PROJECT=1 \
-    PIPENV_IGNORE_VIRTUALENVS=1
+    PIPENV_IGNORE_VIRTUALENVS=1 \
+    PATH="/home/wagtail/.local/bin:${PATH}"
 
 # Install system packages required by Wagtail and Django.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
@@ -40,6 +41,9 @@ RUN pipenv install --deploy --system
 
 # Install backports.zoneinfo for Python 3.8
 RUN pip install backports.zoneinfo
+
+# Explicitly install gunicorn
+RUN pip install gunicorn
 
 # Create public directory and set permissions
 RUN mkdir -p /app/public && chown wagtail:wagtail /app/public && chmod 777 /app/public
